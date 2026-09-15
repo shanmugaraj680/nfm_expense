@@ -6,4 +6,24 @@
 <section id="expensesPage" class="page"><div class="section-head"><div><h2>Expenses</h2><p>Add and manage cloud-synced expenses.</p></div><button id="addExpenseBtn" class="primary">+ Add Expense</button></div><article class="panel"><div id="expenseTable" class="table-wrap"></div></article></section>
 <section id="paymentsPage" class="page"><div class="section-head"><div><h2>Payments</h2><p>Track loan and chit payments.</p></div><button id="savePlansBtn" class="primary">Save Plans</button></div><div class="payment-grid"><article class="panel"><h3>Loan</h3><label>Total<input id="loanTotal" type="number" min="0" step="0.01"></label><label>Paid<input id="loanPaid" type="number" min="0" step="0.01"></label><div class="progress"><i id="loanProgress"></i></div><div id="loanRemaining" class="remaining">Remaining ₹0</div></article><article class="panel"><h3>Chit Fund</h3><label>Total<input id="chitTotal" type="number" min="0" step="0.01"></label><label>Paid<input id="chitPaid" type="number" min="0" step="0.01"></label><div class="progress"><i id="chitProgress"></i></div><div id="chitRemaining" class="remaining">Remaining ₹0</div></article></div><article class="panel budget-panel"><h3>Monthly Budget</h3><label>Budget<input id="monthlyBudget" type="number" min="0" step="0.01" placeholder="Optional"></label></article></section></main></div>
 <div id="expenseModal" class="modal hidden"><div class="modal-card"><div class="panel-head"><h2 id="modalTitle">Add Expense</h2><button id="closeModal" class="ghost" type="button">✕</button></div><form id="expenseForm"><input id="expenseId" type="hidden"><label>Amount<input id="amount" type="number" min="0" step="0.01" required></label><label>Category<select id="category" required><option>Employee Salary</option><option>Godown Rent</option><option>Vehicle Maintenance</option><option>Fuel</option><option>EB Bills</option><option>Chit Fund</option><option>Loan EMI</option><option>Other</option></select></label><label>Date<input id="expenseDate" type="date" required></label><label>Bill / Receipt</label><div class="bill-actions"><label class="ghost file-button" for="billCamera">📷 Take Photo</label><label class="ghost file-button" for="billFile">📁 Choose File</label></div><input id="billCamera" type="file" accept="image/*" capture="environment" class="file-input"><input id="billFile" type="file" accept="image/jpeg,image/png,image/webp,image/jpg" class="file-input"><div id="selectedBill" class="muted">No new bill selected.</div><div id="existingBill" class="muted"></div><button class="primary" type="submit">Save Expense</button><div id="expenseError" class="error"></div></form></div></div><div id="toast" class="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script><script src="config.js?v=20260915-1"></script><script src="app.js?v=20260915-1"></script></body></html>
+<script>
+(function(){
+  function loginFallback(e){
+    e.preventDefault();
+    var u=document.getElementById('username'),p=document.getElementById('password'),err=document.getElementById('loginError');
+    if(u&&p&&u.value.trim()==='nfm2019'&&p.value==='nfm2019*nfm2019'){
+      if(document.getElementById('remember').checked)localStorage.setItem('nfm_logged_in','1');else localStorage.removeItem('nfm_logged_in');
+      document.getElementById('loginView').classList.add('hidden');
+      document.getElementById('appView').classList.remove('hidden');
+      err.textContent='';
+    }else if(err)err.textContent='Incorrect username or password.';
+  }
+  var form=document.getElementById('loginForm');
+  if(form)form.addEventListener('submit',loginFallback);
+  if(localStorage.getItem('nfm_logged_in')==='1'){
+    document.getElementById('loginView').classList.add('hidden');
+    document.getElementById('appView').classList.remove('hidden');
+  }
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script><script src="config.js?v=20260915-2"></script><script src="app.js?v=20260915-2"></script></body></html>
